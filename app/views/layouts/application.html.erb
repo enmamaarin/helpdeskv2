@@ -27,9 +27,10 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="min-h-screen bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 text-gray-800">
-    <main class="flex items-center justify-center min-h-screen p-4">
+  <body class="text-gray-800">
+    <!-- Container with full height and gradient -->
+    <div class="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex flex-col">
       <%= yield %>
-    </main>
+    </div>
   </body>
 </html>

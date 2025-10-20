@@ -1,7 +1,114 @@
-<div>
-  <h1>Welcome to HelpDesk v2 Dashboard</h1>
-  <p>Your one-stop solution for managing support tickets efficiently.</p>
+<!-- Container -->
+<div class="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex flex-col">
 
-  <!-- for log out -->
-  <%= button_to "Logout", session_path, method: :delete %>>
+  <!-- Header -->
+  <header class="bg-teal-500 text-white px-10 py-8 flex justify-between items-center shadow-lg">
+    <h1 class="text-4xl font-bold italic tracking-wide">Helpdesk</h1>
+    <div class="flex items-center space-x-6">
+      <span class="font-semibold text-gray-900 bg-white rounded-md px-4 py-2 text-base">User</span>
+      <%= button_to "Logout", session_path, method: :delete,
+            class: "bg-white text-teal-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 transition duration-300" %>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <div class="flex flex-1"> 
+
+    <!-- Sidebar -->
+    <aside class="w-96 bg-gray-100 text-gray-800 p-10 shadow-2xl">
+      <h2 class="text-2xl font-semibold mb-10 text-teal-700">Navigation</h2>
+      <nav class="flex flex-col space-y-6">
+        <a href="#" class="flex items-center gap-4 hover:text-teal-600 transition duration-300">
+          <i class="fas fa-home text-xl"></i> Dashboard
+        </a>
+        <a href="#" class="flex items-center gap-4 hover:text-teal-600 transition duration-300">
+          <i class="fas fa-ticket-alt text-xl"></i> New Ticket
+        </a>
+        <a href="#" class="flex items-center gap-4 hover:text-teal-600 transition duration-300">
+          <i class="fas fa-list text-xl"></i> My Ticket
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Dashboard -->
+    <main class="flex-1 px-24 py-16 overflow-y-auto">
+      <h2 class="text-center text-5xl font-semibold mb-16 text-white drop-shadow-2xl tracking-wide">
+        Dashboard Overview
+      </h2>
+
+      <!-- Stats Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+        <!-- Total Tickets -->
+        <div class="stats-card tickets-bg mx-10">
+          <p class="text-2xl font-medium">Total Tickets</p>
+          <p class="text-7xl font-bold mt-4">0</p>
+        </div>
+
+        <!-- Total Solved -->
+        <div class="stats-card solved-bg mx-10">
+          <p class="text-2xl font-medium">Total Solved</p>
+          <p class="text-7xl font-bold mt-4">0</p>
+        </div>
+
+        <!-- Awaiting Approval -->
+        <div class="stats-card approval-bg mx-10">
+          <p class="text-2xl font-medium">Awaiting Approval</p>
+          <p class="text-7xl font-bold mt-4">0</p>
+        </div>
+
+        <!-- In Progress -->
+        <div class="stats-card progress-bg mx-10">
+          <p class="text-2xl font-medium">In Progress</p>
+          <p class="text-7xl font-bold mt-4">0</p>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-teal-500 text-center py-6 text-white text-base mt-auto shadow-inner">
+    © 2025 Tonya's Helpdesk System — All Rights Reserved
+  </footer>
 </div>
+
+<style>
+  .stats-card {
+    width: 90%;
+    margin: 25px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 300ms;
+    transform: translateZ(0);
+  }
+  .stats-card:hover {
+    transform: scale(1.05);
+  }
+  .tickets-bg {
+    background-color: #3b82f6;
+    color: #ffffff;
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  }
+  .solved-bg {
+    background-color: #10b981;
+    color: #ffffff;
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  }
+  .approval-bg {
+    background-color: #ef4444;
+    color: #ffffff;
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  }
+  .progress-bg {
+    background-color: #f59e0b;
+    color: #111827;
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  }
+</style>
