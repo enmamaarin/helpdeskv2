@@ -9,4 +9,13 @@ class PagesController < ApplicationController
       redirect_to new_session_path unless authenticated?
   end
 
+  def newtickets
+      redirect_to new_session_path unless authenticated?
+      @ticket = Ticket.new
+  end
+
+  def myticket
+      redirect_to new_session_path unless authenticated?
+  end
+
 end

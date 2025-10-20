@@ -18,15 +18,12 @@
     <aside class="w-96 bg-gray-100 text-gray-800 p-10 shadow-2xl">
       <h2 class="text-2xl font-semibold mb-10 text-teal-700">Navigation</h2>
       <nav class="flex flex-col space-y-6">
-        <a href="#" class="flex items-center gap-4 hover:text-teal-600 transition duration-300">
-          <i class="fas fa-home text-xl"></i> Dashboard
-        </a>
-        <a href="#" class="flex items-center gap-4 hover:text-teal-600 transition duration-300">
-          <i class="fas fa-ticket-alt text-xl"></i> New Ticket
-        </a>
-        <a href="#" class="flex items-center gap-4 hover:text-teal-600 transition duration-300">
-          <i class="fas fa-list text-xl"></i> My Ticket
-        </a>
+        <%= link_to "Dashboard", dashboard_path,
+            class: "flex items-center gap-4 hover:text-teal-600 transition duration-300" %>
+        <%= link_to "New Ticket", newtickets_path,
+            class: "flex items-center gap-4 hover:text-teal-600 transition duration-300" %>
+        <%= link_to "My Ticket", myticket_path,
+            class: "flex items-center gap-4 hover:text-teal-600 transition duration-300" %>
       </nav>
     </aside>
 
@@ -68,12 +65,13 @@
 
   <!-- Footer -->
   <footer class="bg-teal-500 text-center py-6 text-white text-base mt-auto shadow-inner">
-    © 2025 Tonya's Helpdesk System — All Rights Reserved
+    © 2025 Helpdesk System — All Rights Reserved
   </footer>
 </div>
 
 <style>
   .stats-card {
+    border: 2px solid #000000;
     width: 90%;
     margin: 25px;
     height: 200px;
@@ -107,7 +105,7 @@
   }
   .progress-bg {
     background-color: #f59e0b;
-    color: #111827;
+    color: #ffffff;
     border-radius: 1.5rem;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
   }

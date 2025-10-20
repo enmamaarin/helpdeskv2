@@ -1,0 +1,43 @@
+<!-- Container -->
+<div class="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-teal-500 text-white px-10 py-8 flex justify-between items-center shadow-lg">
+    <h1 class="text-4xl font-bold italic tracking-wide">Helpdesk</h1>
+    <div class="flex items-center space-x-6">
+      <span class="font-semibold text-gray-900 bg-white rounded-md px-4 py-2 text-base">User</span>
+      <%= button_to "Logout", session_path, method: :delete,
+            class: "bg-white text-teal-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 transition duration-300" %>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <div class="flex flex-1"> 
+
+
+    
+    <!-- Sidebar -->
+    <aside class="w-96 bg-gray-100 text-gray-800 p-10 shadow-2xl">
+      <h2 class="text-2xl font-semibold mb-10 text-teal-700">Navigation</h2>
+      <nav class="flex flex-col space-y-6">
+        <%= link_to "Dashboard", dashboard_path,
+        class: "flex items-center gap-4 hover:text-teal-600 transition duration-300" %>
+        <%= link_to "New Ticket", newtickets_path,
+        class: "flex items-center gap-4 hover:text-teal-600 transition duration-300" %>
+        <%= link_to "My Ticket", myticket_path,
+        class: "flex items-center gap-4 hover:text-teal-600 transition duration-300" %>
+      </nav>
+    </aside>
+
+
+    <!-- My Ticket -->
+      <main class="flex-1 px-24 py-16 overflow-y-auto">
+        <h2 class="text-center text-5xl font-semibold mb-16 text-white drop-shadow-2xl tracking-wide">
+          My Ticket
+        </h2>
+
+        <!-- Footer -->
+  <footer class="bg-teal-500 text-center py-6 text-white text-base mt-auto shadow-inner">
+    © 2025 System — All Rights Reserved
+  </footer>
+</div>

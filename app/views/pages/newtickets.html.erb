@@ -1,0 +1,129 @@
+<!-- Container -->
+<div class="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-teal-500 text-white px-10 py-8 flex justify-between items-center shadow-lg">
+    <h1 class="text-4xl font-bold italic tracking-wide">Helpdesk</h1>
+    <div class="flex items-center space-x-6">
+      <span class="font-semibold text-gray-900 bg-white rounded-md px-4 py-2 text-base">User</span>
+      <%= button_to "Logout", session_path, method: :delete,
+            class: "bg-white text-teal-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 transition duration-300" %>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <div class="flex flex-1">
+
+    <!-- Sidebar -->
+    <aside class="w-96 bg-gray-100 text-gray-800 p-10 shadow-2xl">
+      <h2 class="text-2xl font-semibold mb-10 text-teal-700">Navigation</h2>
+      <nav class="flex flex-col space-y-6">
+        <%= link_to "Dashboard", dashboard_path,
+            class: "flex items-center gap-4 hover:text-teal-600 transition duration-300" %>
+        <%= link_to "New Ticket", newtickets_path,
+            class: "flex items-center gap-4 hover:text-teal-600 transition duration-300" %>
+        <%= link_to "My Ticket", myticket_path,
+            class: "flex items-center gap-4 hover:text-teal-600 transition duration-300" %>
+      </nav>
+    </aside>
+
+    <!-- New Ticket -->
+    <main class="flex-1 px-12 py-5 overflow-y-auto">
+      <h2 class="text-center text-5xl font-semibold mb-8 text-white drop-shadow-2xl tracking-wide"
+      style="margin-top: 32px;">
+        New Ticket
+      </h2>
+
+      <div class="bg-white rounded-3xl shadow-2xl p-12 w-full max-w-6xl mx-auto" style ="margin-bottom: 32px; border: 2px solid #000000;">
+        <%= form_with model: @ticket, url: newtickets_path, local: true, class: "p-10" do |f| %>
+
+          <!-- Top fields -->
+          <div class="grid grid-cols-2 gap-8">
+            <div>
+              <label class="block font-semibold text-gray-700">Ticket No.</label>
+              <%= f.text_field :ticket_no, class: "bg-gray-100 w-full mt-1 px-3 py-2 border rounded-md focus:ring-2 focus:ring-teal-400" %>
+            </div>
+            <div>
+              <label class="block font-semibold text-gray-700">Date</label>
+              <%= f.date_field :date, class: "bg-gray-100 w-full mt-1 px-3 py-2 border rounded-md focus:ring-2 focus:ring-teal-400" %>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-gray-700">Name</label>
+              <%= f.text_field :name, class: "bg-gray-100 w-full mt-1 px-3 py-2 border rounded-md focus:ring-2 focus:ring-teal-400" %>
+            </div>
+            <div>
+              <label class="block font-semibold text-gray-700">Department</label>
+              <%= f.text_field :department, class: "bg-gray-100 w-full mt-1 px-3 py-2 border rounded-md focus:ring-2 focus:ring-teal-400" %>
+            </div>
+
+            <div class="col-span-2">
+              <label class="block font-semibold text-gray-700">Subject</label>
+              <%= f.text_field :subject, class: "bg-gray-100 w-full mt-1 px-3 py-2 border rounded-md focus:ring-2 focus:ring-teal-400" %>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-gray-700">Category</label>
+              <%= f.text_field :category, class: "bg-gray-100 w-full mt-1 px-3 py-2 border rounded-md focus:ring-2 focus:ring-teal-400" %>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-gray-700">Description</label>
+              <%= f.text_area :description, rows: 5, class: "bg-gray-100 w-full mt-1 px-3 py-2 border rounded-md focus:ring-2 focus:ring-teal-400" %>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-gray-700">Type</label>
+              <%= f.select :ticket_type, 
+                options_for_select([
+                    ["Technical Issue", "Technical Issue"],
+                    ["Account Problem", "Account Problem"],
+                    ["Billing", "Billing"],
+                    ["Other", "Other"]
+                  ]), 
+                { prompt: "Select ticket type" },
+                class: "bg-gray-100 w-full mt-1 px-3 py-2 border rounded-md focus:ring-2 focus:ring-teal-400 bg-white" %>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-gray-700">Priority</label>
+              <%= f.select :priority, 
+                  options_for_select([
+                    ["Low", "Low"],
+                    ["Medium", "Medium"],
+                    ["High", "High"],
+                    ["Urgent", "Urgent"]
+                  ]), 
+                { prompt: "Select priority" },
+              class: "bg-gray-100 w-full mt-1 px-3 py-2 border rounded-md focus:ring-2 focus:ring-teal-400 bg-white" %>
+            </div>
+
+
+          <!-- Attachment -->
+          <div class="flex justify-end mt-6">
+            <label class="cursor-pointer bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition duration-300">
+             Attach File
+              <%= f.file_field :attachment, class: "hidden" %>
+            </label>
+          </div>
+
+          <!-- reCAPTCHA
+          <div class="flex justify-center mt-10">
+            < % = recaptcha_v3(action: 'ticket', site_key: ENV['RECAPTCHA_SITE_KEY']) %>
+          </div> -->
+
+          <!-- Submit -->
+          <div class="flex justify-center mt-10">
+            <%= f.submit "Submit", class: "bg-teal-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-teal-600 transition duration-300" %>
+          </div>
+
+        <% end %>
+      </div>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-teal-500 text-center py-6 text-white text-base mt-auto shadow-inner">
+    © 2025 Helpdesk System — All Rights Reserved
+  </footer>
+</div>

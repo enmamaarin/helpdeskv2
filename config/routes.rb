@@ -13,5 +13,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "pages#home"
+  
   get 'dashboard', to: 'pages#dashboard', as: 'dashboard'
+
+  get 'newtickets', to: 'pages#newtickets', as: 'newtickets'
+
+  get 'myticket', to: 'pages#myticket', as: 'myticket'
 end
