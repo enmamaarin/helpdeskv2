@@ -1,5 +1,5 @@
 <!-- Container -->
-<div class="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex flex-col">
+<div class="flex flex-col min-h-screen bg-gradient-to-br from-blue-500 to-purple-600">
 
   <!-- Header -->
   <header class="bg-teal-500 text-white px-10 py-8 flex justify-between items-center shadow-lg">
@@ -14,30 +14,100 @@
   <!-- Main Content Area -->
   <div class="flex flex-1"> 
 
-
-    
     <!-- Sidebar -->
     <aside class="w-96 bg-gray-100 text-gray-800 p-10 shadow-2xl">
       <h2 class="text-2xl font-semibold mb-10 text-teal-700">Navigation</h2>
       <nav class="flex flex-col space-y-6">
-        <%= link_to "Dashboard", dashboard_path,
+        <%= link_to "📉 Dashboard", dashboard_path,
         class: "flex items-center gap-4 hover:text-teal-600 transition duration-300" %>
-        <%= link_to "New Ticket", newtickets_path,
+        <%= link_to "🆕 New Ticket", newtickets_path,
         class: "flex items-center gap-4 hover:text-teal-600 transition duration-300" %>
-        <%= link_to "My Ticket", myticket_path,
+        <%= link_to "> 🎟️ My Ticket", myticket_path,
         class: "flex items-center gap-4 hover:text-teal-600 transition duration-300" %>
       </nav>
     </aside>
 
-
     <!-- My Ticket -->
-      <main class="flex-1 px-24 py-16 overflow-y-auto">
-        <h2 class="text-center text-5xl font-semibold mb-16 text-white drop-shadow-2xl tracking-wide">
-          My Ticket
-        </h2>
+    <main class="flex-1 px-24 py-16 overflow-y-auto">
+      <h2 class="text-center text-5xl font-semibold mb-16 text-white drop-shadow-2xl tracking-wide">
+        My Ticket
+      </h2>
 
-        <!-- Footer -->
+      <!-- Ticket Table -->
+      <div class="bg-white rounded-3xl shadow-2xl p-10 w-full max-w-6xl mx-auto mb-10" style="border: 2px solid #000000;">
+        <h3 class="text-2xl font-semibold text-center mb-8">List of Ticket</h3>
+
+        <!-- Search and Filter -->
+        <div class="flex flex-wrap justify-between items-center mb-6">
+          <div class="flex items-center space-x-2">
+            <label class="font-medium">Show:</label>
+            <select class="border rounded-md px-2 py-1">
+              <option>10</option>
+              <option>25</option>
+              <option>50</option>
+            </select>
+            <span class="ml-2">Entries</span>
+          </div>
+
+          <div class="flex items-center">
+            <input type="text" placeholder="Find ticket" class="border rounded-md px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-400"/>
+            <button class="ml-2 text-gray-700">🔍</button>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="overflow-x-auto">
+          <table class="min-w-full border border-gray-300 rounded-lg">
+            <thead class="bg-gray-200">
+              <tr>
+                <th class="px-10 py-3 text-left font-semibold text-gray-700">Ticket No.</th>
+                <th class="px-10 py-3 text-left font-semibold text-gray-700">Subject</th>
+                <th class="px-10 py-3 text-left font-semibold text-gray-700">Status</th>
+                <th class="px-10 py-3 text-left font-semibold text-gray-700">Support by</th>
+                <th class="px-10 py-3 text-left font-semibold text-gray-700">Date</th>
+                <th class="px-10 py-3 text-left font-semibold text-gray-700">Rate</th>
+              </tr>
+            </thead>
+            <tbody class="text-gray-800">
+              <% @tickets.each do |ticket| %>
+                <tr class="border-t hover:bg-gray-50">
+                  <td class="px-6 py-3 text-blue-600 underline cursor-pointer"><%= ticket.id %></td>
+                  <td class="px-6 py-3"><%= ticket.subject %></td>
+                  <td class="px-6 py-3">
+                    <% status_color = case ticket.status
+                      when "In Progress" then "bg-green-500"
+                      when "On hold" then "bg-blue-800"
+                      when "Closed" then "bg-gray-700"
+                      else "bg-gray-400"
+                    end %>
+                    <span class="<%= status_color %> text-white px-3 py-1 rounded-md text-sm font-semibold"><%= ticket.status %></span>
+                  </td>
+                  <td class="px-6 py-3"><%= ticket.support_team %></td>
+                  <td class="px-6 py-3"><%= ticket.created_at.strftime("%d/%m/%y") %></td>
+                  <td class="px-6 py-3">
+                    <%= form_with url: rate_ticket_path(ticket), method: :post, local: true, class: "rating-form flex space-x-1", data: { ticket_id: ticket.id } do |f| %>
+                      <% 5.times do |i| %>
+                        <% star_number = i + 1 %>
+                        <button type="button"
+                                class="star text-2xl <%= 'text-yellow-400' if ticket.rating && ticket.rating >= star_number %>"
+                                data-star="<%= star_number %>">★</button>
+                      <% end %>
+                      <%= f.hidden_field :rating, value: ticket.rating, class: "rating-input" %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="text-sm text-gray-600 mt-4">Showing 1 to <%= @tickets.count %> of <%= @tickets.count %> entries</p>
+      </div>
+    </main>
+  </div>
+
+  <!--Footer -->
   <footer class="bg-teal-500 text-center py-6 text-white text-base mt-auto shadow-inner">
-    © 2025 System — All Rights Reserved
+    © 2025 Helpdesk System — All Rights Reserved
   </footer>
 </div>
